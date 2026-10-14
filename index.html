@@ -50,7 +50,9 @@ button:hover {
   color: var(--fg);
 }
 button:disabled { opacity: .6; cursor: wait; }
-#generate { width: 100%; font-weight: 600; }
+#generate { width: auto; max-width: 100%; font-weight: 600; }
+.wrap { text-align: center; }
+#results { text-align: left; }
 .copy-button {
   height: 52px;
   min-height: 52px;
@@ -80,9 +82,9 @@ button:disabled { opacity: .6; cursor: wait; }
   font: 12px/1.4 Arial, Verdana, sans-serif;
 }
 .value {
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-wrap: normal;
+  white-space: normal;
+  overflow-x: visible;
+  overflow-wrap: anywhere;
   user-select: text;
 }
 @media (max-width: 480px) {

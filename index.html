@@ -7,7 +7,10 @@
 <style>
 :root {
   --bg: #202020;
-  --fg: #e5e5e2;
+  --fg: #ECEFF0;
+  --eth-blue: #627EEA;
+  --eth-dark: #3C3C3D;
+  --eth-gray: #8C8C8C;
   color-scheme: dark;
   font-family: system-ui, sans-serif;
   background: var(--bg);
@@ -113,24 +116,27 @@ button {
   align-items: center;
   justify-content: center;
   line-height: 1;
-  border: 1px solid var(--fg);
+  border: 1px solid var(--eth-blue);
   border-radius: 0;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--eth-blue);
+  color: #FFFFFF;
+  cursor: pointer;
 }
 button:hover {
-  background: var(--bg);
-  border: 1px solid var(--fg);
-  color: var(--fg);
+  background: var(--eth-dark);
+  border: 1px solid var(--eth-blue);
+  color: #FFFFFF;
 }
 .copy-button {
   min-height: 48px;
-  background: var(--bg);
+  background: var(--eth-dark);
   color: var(--fg);
+  border-color: var(--eth-gray);
 }
 .copy-button:hover {
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--eth-blue);
+  border-color: var(--eth-blue);
+  color: #FFFFFF;
 }
 
 </style>

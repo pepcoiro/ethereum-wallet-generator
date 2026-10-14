@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,7 +9,7 @@
   --bg: #202020;
   --fg: #e5e5e2;
   color-scheme: dark;
-  font-family: Arial, Verdana, sans-serif;
+  font-family: system-ui, sans-serif;
   background: var(--bg);
   color: var(--fg);
 }
@@ -67,7 +67,7 @@ button:disabled { opacity: .6; cursor: wait; }
   display: none;
   margin-top: 24px;
   overflow-wrap: normal;
-  font: 13px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace;
+  font: inherit; line-height: 1.7;
   width: 100%;
 }
 .value {
@@ -79,7 +79,7 @@ button:disabled { opacity: .6; cursor: wait; }
 .label {
   margin-bottom: 6px;
   color: var(--fg);
-  font: 12px/1.4 Arial, Verdana, sans-serif;
+  font: inherit; line-height: 1.4;
 }
 .value {
   white-space: normal;
@@ -94,6 +94,7 @@ button:disabled { opacity: .6; cursor: wait; }
 
 /* Personalizzazione richiesta */
 html, body, body * {
+  font-family: system-ui, sans-serif !important;
   font-size: 18px !important;
 }
 button {
@@ -128,11 +129,11 @@ button:hover {
 </head>
 <body>
 <main class="wrap">
-  <button id="generate" type="button">Genera Wallet Ethereum</button>
+  <button id="generate" type="button">Generate Ethereum Wallet</button>
   <div id="results">
-    <div class="field"><div class="label">Seed phrase</div><div class="value" id="mnemonic"></div><button class="copy-button" type="button" data-copy="mnemonic">Copia seed phrase</button></div>
-    <div class="field"><div class="label">Indirizzo Ethereum</div><div class="value" id="address"></div><button class="copy-button" type="button" data-copy="address">Copia indirizzo</button></div>
-    <div class="field"><div class="label">Chiave privata</div><div class="value" id="private"></div><button class="copy-button" type="button" data-copy="private">Copia chiave privata</button></div>
+    <div class="field"><div class="label">Seed phrase</div><div class="value" id="mnemonic"></div><button class="copy-button" type="button" data-copy="mnemonic">Copy Seed Phrase</button></div>
+    <div class="field"><div class="label">Indirizzo Ethereum</div><div class="value" id="address"></div><button class="copy-button" type="button" data-copy="address">Copy Address</button></div>
+    <div class="field"><div class="label">Chiave privata</div><div class="value" id="private"></div><button class="copy-button" type="button" data-copy="private">Copy Private Key</button></div>
   </div>
 </main>
 <script>
@@ -295,7 +296,7 @@ function privateKeyToAddress(privateKey){
 
 async function generateWallet(){
   if(!globalThis.crypto?.getRandomValues||!globalThis.crypto?.subtle) {
-    throw new Error('Web Crypto non disponibile. Aprire il file in un browser moderno.');
+    throw new Error('Web Crypto is unavailable. Open this file in a modern browser.');
   }
   const mnemonic=await makeMnemonic();
   const seed=await mnemonicToSeed(mnemonic);
@@ -333,10 +334,10 @@ async function copyValue(id, button) {
       temporary.select();
       const copied = document.execCommand('copy');
       temporary.remove();
-      if (!copied) throw new Error('Copia non riuscita');
+      if (!copied) throw new Error('Copy failed');
     }
 
-    button.textContent = 'Copiato';
+    button.textContent = 'Copied';
     setTimeout(() => { button.textContent = originalText; }, 1200);
   } catch (error) {
     button.textContent = 'Copia non riuscita';

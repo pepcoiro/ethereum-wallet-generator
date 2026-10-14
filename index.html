@@ -53,6 +53,14 @@ button:disabled { opacity: .6; cursor: wait; }
 #generate { width: 100%; font-weight: 600; }
 .wrap { text-align: center; }
 #results { text-align: left; }
+.disclaimer {
+  margin-top: 36px;
+  text-align: left;
+  line-height: 1.6;
+}
+.disclaimer p {
+  margin: 0 0 12px;
+}
 .copy-button {
   height: 52px;
   min-height: 52px;
@@ -135,6 +143,11 @@ button:hover {
     <div class="field"><div class="label">Ethereum Address</div><div class="value" id="address"></div><button class="copy-button" type="button" data-copy="address">Copy Address</button></div>
     <div class="field"><div class="label">Private Key</div><div class="value" id="private"></div><button class="copy-button" type="button" data-copy="private">Copy Private Key</button></div>
   </div>
+  <footer class="disclaimer">
+    <p><strong>Security Disclaimer</strong></p>
+    <p>This tool is open source, so anyone can inspect the code and review how wallet keys are generated. For better security, download the code and run it offline on a trusted device.</p>
+    <p>Malware on your computer may capture or steal your seed phrase or private key. Source code being public does not guarantee that the version you are using is safe, and this tool has not been independently audited.</p>
+  </footer>
 </main>
 <script>
 'use strict';

@@ -25,17 +25,31 @@ body {
 }
 .wrap { width: min(620px, 100%); }
 button {
+  min-height: 48px;
   border: 1px solid var(--fg);
   border-radius: 0;
   padding: 12px 16px;
-  background: var(--bg);
-  color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
   font: inherit;
   cursor: pointer;
 }
-button:hover { background: var(--fg); color: var(--bg); }
+button:hover {
+  background: var(--bg);
+  border-color: var(--fg);
+  color: var(--fg);
+}
 button:disabled { opacity: .6; cursor: wait; }
 #generate { width: 100%; font-weight: 600; }
+.copy-button {
+  min-height: 48px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.copy-button:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
 #results {
   display: none;
   margin-top: 24px;
@@ -56,6 +70,7 @@ html, body, body * {
   font-size: 18px !important;
 }
 button {
+  min-height: 48px;
   border: 1px solid var(--fg);
   border-radius: 0;
   background: var(--fg);
@@ -65,6 +80,15 @@ button:hover {
   background: var(--bg);
   border: 1px solid var(--fg);
   color: var(--fg);
+}
+.copy-button {
+  min-height: 48px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.copy-button:hover {
+  background: var(--fg);
+  color: var(--bg);
 }
 
 </style>

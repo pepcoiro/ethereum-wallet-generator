@@ -50,6 +50,9 @@ button:hover {
 }
 button:disabled { opacity: .6; cursor: wait; }
 #generate { width: 100%; font-weight: 600; }
+.status { min-height: 0; margin: 12px 0 0; color: var(--fg); text-align: left; overflow-wrap: anywhere; }
+.status:empty { display: none; }
+.status.error { color: #ffb4ab; }
 .wrap { text-align: center; }
 #results { text-align: left; }
 .disclaimer {

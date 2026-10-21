@@ -123,18 +123,21 @@ function compressedPublicKey(k){
   return [Number(y&1n)?3:2,...bytes32(x)];
 }
 
-// Deriva un figlio privato BIP-32 dal numero indice e dal chain code.
+// Derive a BIP-32 private child. Invalid children are skipped per the BIP-32 specification.
 async function deriveChild(parentKey,chainCode,index){
-  const hardened=index>=0x80000000;
-  const data=hardened
-    ? concatBytes([0],ser256(parentKey),ser32(index))
-    : concatBytes(compressedPublicKey(parentKey),ser32(index));
-  const I=await hmac512(chainCode,data);
-  const left=bytesToBigInt(I.slice(0,32));
-  if(left>=N)throw new Error('Invalid BIP-32 index; please generate a new wallet.');
-  const child=(left+parentKey)%N;
-  if(child===0n)throw new Error('Invalid child key; please generate a new wallet.');
-  return {key:child,chainCode:I.slice(32)};
+  for(let childIndex=index;childIndex<=0xffffffff;childIndex++){
+    const hardened=childIndex>=0x80000000;
+    const data=hardened
+      ? concatBytes([0],ser256(parentKey),ser32(childIndex))
+      : concatBytes(compressedPublicKey(parentKey),ser32(childIndex));
+    const I=await hmac512(chainCode,data);
+    const left=bytesToBigInt(I.slice(0,32));
+    if(left>=N)continue;
+    const child=(left+parentKey)%N;
+    if(child===0n)continue;
+    return {key:child,chainCode:I.slice(32)};
+  }
+  throw new Error('No valid BIP-32 child index remains.');
 }
 
 // 3) BIP-32: seed -> chiave master -> percorso BIP-44 Ethereum.

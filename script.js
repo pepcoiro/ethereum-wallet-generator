@@ -131,9 +131,9 @@ async function deriveChild(parentKey,chainCode,index){
     : concatBytes(compressedPublicKey(parentKey),ser32(index));
   const I=await hmac512(chainCode,data);
   const left=bytesToBigInt(I.slice(0,32));
-  if(left>=N)throw new Error('Indice BIP-32 non valido; rigenerare il wallet.');
+  if(left>=N)throw new Error('Invalid BIP-32 index; please generate a new wallet.');
   const child=(left+parentKey)%N;
-  if(child===0n)throw new Error('Chiave figlia non valida; rigenerare il wallet.');
+  if(child===0n)throw new Error('Invalid child key; please generate a new wallet.');
   return {key:child,chainCode:I.slice(32)};
 }
 
@@ -142,7 +142,7 @@ async function deriveChild(parentKey,chainCode,index){
 async function deriveEthereumPrivateKey(seed){
   let I=await hmac512(new TextEncoder().encode('Bitcoin seed'),seed);
   let key=bytesToBigInt(I.slice(0,32)), chainCode=I.slice(32);
-  if(key===0n||key>=N)throw new Error('Chiave master non valida; rigenerare il wallet.');
+  if(key===0n||key>=N)throw new Error('Invalid master key; please generate a new wallet.');
   const path=[0x8000002c,0x8000003c,0x80000000,0,0];
   for(const index of path){
     const child=await deriveChild(key,chainCode,index);

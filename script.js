@@ -23,9 +23,13 @@ function rol(x,n){if(!n)return x;const b=BigInt(n);return ((x<<b)|(x>>(64n-b)))&
 // Keccak-256, NON SHA3-256: Ethereum usa il padding Keccak originale.
 function keccak256(bytes){
   const rate=136, padded=Array.from(bytes);
-  padded.push(0x01);
-  while(padded.length%rate!==rate-1)padded.push(0);
-  padded.push(0x80);
+  if(padded.length % rate === rate - 1) {
+    padded.push(0x81);
+  } else {
+    padded.push(0x01);
+    while(padded.length % rate !== rate - 1) padded.push(0);
+    padded.push(0x80);
+  }
   const s=Array(25).fill(0n);
   for(let off=0;off<padded.length;off+=rate){
     for(let i=0;i<rate;i++)s[Math.floor(i/8)]^=BigInt(padded[off+i])<<BigInt((i%8)*8);
@@ -152,26 +156,33 @@ async function deriveEthereumPrivateKey(seed){
 function privateKeyToAddress(privateKey){
   const [x,y]=pointMultiply(privateKey);
   const publicKey=[...bytes32(x),...bytes32(y)];
-  return '0x'+hex(keccak256(publicKey).slice(12));
+  const address = hex(keccak256(publicKey).slice(12));
+  const addressHash = hex(keccak256(Array.from(address, char => char.charCodeAt(0))));
+  const checksumAddress = Array.from(address, (char, index) =>
+    parseInt(addressHash[index], 16) >= 8 ? char.toUpperCase() : char
+  ).join('');
+  return '0x' + checksumAddress;
 }
 
 async function generateWallet(){
   if(!globalThis.crypto?.getRandomValues||!globalThis.crypto?.subtle) {
-    throw new Error('Web Crypto is unavailable. Open this file in a modern browser.');
+    throw new Error('Web Crypto is unavailable. Open this page in a modern browser over HTTPS or localhost.');
   }
   const mnemonic=await makeMnemonic();
   const seed=await mnemonicToSeed(mnemonic);
-  const privateKey=await deriveEthereumPrivateKey(seed);
-  const address=privateKeyToAddress(privateKey);
+  try {
+    const privateKey=await deriveEthereumPrivateKey(seed);
+    const address=privateKeyToAddress(privateKey);
 
-  // Mostra i risultati solo nella pagina; non vengono salvati né trasmessi.
-  document.getElementById('mnemonic').textContent=mnemonic;
-  document.getElementById('address').textContent=address;
-  document.getElementById('private').textContent='0x'+privateKey.toString(16).padStart(64,'0');
-  document.getElementById('results').style.display='block';
-
-  // Riduce la permanenza di alcuni buffer in memoria (non è una cancellazione garantita).
-  seed.fill(0);
+    // Display results locally; this tool does not save or transmit wallet keys.
+    document.getElementById('mnemonic').textContent=mnemonic;
+    document.getElementById('address').textContent=address;
+    document.getElementById('private').textContent='0x'+privateKey.toString(16).padStart(64,'0');
+    document.getElementById('results').style.display='block';
+  } finally {
+    // Best-effort cleanup only; JavaScript cannot guarantee that all copies are erased.
+    seed.fill(0);
+  }
 }
 
 
@@ -201,7 +212,7 @@ async function copyValue(id, button) {
     button.textContent = 'Copied';
     setTimeout(() => { button.textContent = originalText; }, 1200);
   } catch (error) {
-    button.textContent = 'Copia non riuscita';
+    button.textContent = 'Copy failed';
     setTimeout(() => { button.textContent = originalText; }, 1600);
   }
 }
@@ -213,10 +224,21 @@ document.querySelectorAll('[data-copy]').forEach(button => {
 
 document.getElementById('generate').addEventListener('click',async()=>{
   const button=document.getElementById('generate');
+  const status=document.getElementById('status');
   button.disabled=true;
-  try{await generateWallet();}
-  catch(error){document.getElementById('results').style.display='none';}
-  finally{button.disabled=false;}
+  status.textContent='';
+  status.classList.remove('error');
+  try {
+    await generateWallet();
+  } catch(error) {
+    document.getElementById('results').style.display='none';
+    status.textContent = error instanceof Error
+      ? error.message
+      : 'Wallet generation failed. Please try again.';
+    status.classList.add('error');
+  } finally {
+    button.disabled=false;
+  }
 });
 
 document.querySelectorAll("[data-current-year]").forEach(function(link){link.textContent="@ "+new Date().getFullYear()+" Giuseppe Coiro";});

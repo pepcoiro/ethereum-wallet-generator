@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap");
+
 :root {
   --bg: #3C3C3D;
   --fg: #ECEFF0;
@@ -138,7 +140,6 @@ button:hover {
   color: var(--fg);
 }
 
-.site-footer { width: min(100%, 600px); margin: 24px auto 0; padding-top: 12px; border-top: 1px solid rgba(236, 239, 240, .28); text-align: center; color: var(--eth-gray); font-size: 13px; line-height: 1.5; }
-.site-footer, .site-footer a { font-size: 13px !important; font-weight: 400 !important; line-height: 1.5 !important; }
-.site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.site-footer a:hover { color: var(--fg); }
+.site-footer { width: min(100%, 600px); margin: 24px auto 0; padding-top: 12px; border-top: 1px solid rgba(236, 239, 240, .28); text-align: center; color: var(--eth-gray); font-family: "Jost", sans-serif !important; font-size: 13px !important; font-weight: 400 !important; line-height: 1.5 !important; }
+.site-footer a { color: inherit; font-family: inherit !important; font-size: inherit !important; font-weight: inherit !important; line-height: inherit !important; text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a:hover { opacity: .7; }

@@ -15,6 +15,7 @@ body {
   min-height: 100vh;
   padding: 36px 24px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: var(--bg);
@@ -137,7 +138,7 @@ button:hover {
   color: var(--fg);
 }
 
-.copyright { position: static; display: block; visibility: visible; opacity: 1; margin: 24px 0 0 !important; padding: 0; text-align: center; font-size: 13px !important; line-height: 1.5; color: var(--eth-gray); pointer-events: auto; }
-.copyright, .copyright a { font-size: 13px !important; font-weight: 400 !important; line-height: 1.5 !important; }
-.copyright a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.copyright a:hover { color: var(--fg); }
+.site-footer { width: min(100%, 600px); margin: 24px auto 0; padding-top: 12px; border-top: 1px solid rgba(236, 239, 240, .28); text-align: center; color: var(--eth-gray); font-size: 13px; line-height: 1.5; }
+.site-footer, .site-footer a { font-size: 13px !important; font-weight: 400 !important; line-height: 1.5 !important; }
+.site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a:hover { color: var(--fg); }

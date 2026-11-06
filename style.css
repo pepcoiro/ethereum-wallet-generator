@@ -34,17 +34,17 @@ button {
   align-items: center;
   justify-content: center;
   line-height: 1;
-  border: 1px solid var(--fg);
+  border: 1px solid var(--eth-blue);
   border-radius: 0;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--eth-blue);
+  color: var(--fg);
   font: inherit;
   cursor: pointer;
 }
 button:hover {
-  background: var(--bg);
-  border-color: var(--fg);
-  color: var(--fg);
+  background: var(--eth-gray);
+  border-color: var(--eth-blue);
+  color: #FFFFFF;
 }
 button:disabled { opacity: .6; cursor: wait; }
 #generate { width: 100%; font-weight: 600; }
@@ -58,78 +58,11 @@ button:disabled { opacity: .6; cursor: wait; }
   text-align: left;
   line-height: 1.6;
 }
-.disclaimer p {
-  margin: 0 0 12px;
-}
-.copy-button {
-  height: 52px;
-  min-height: 52px;
-  background: var(--bg);
-  color: var(--fg);
-}
-.copy-button:hover {
-  background: var(--fg);
-  color: var(--bg);
-}
-#results {
-  display: none;
-  margin-top: 24px;
-  overflow-wrap: normal;
-  font: inherit; line-height: 1.7;
-  width: 100%;
-}
-.value {
-  white-space: normal;
-  overflow-wrap: anywhere;
-  user-select: text;
-}
-.field { margin-top: 20px; }
-.label {
-  margin-bottom: 6px;
-  color: var(--fg);
-  font: inherit; line-height: 1.4;
-}
-.value {
-  white-space: normal;
-  overflow-x: visible;
-  overflow-wrap: anywhere;
-  user-select: text;
-}
-@media (max-width: 480px) {
-  body { padding: 24px 16px; }
-}
-.copy-button { margin-top: 8px; }
-
-/* Typography: system fonts only; no external font requests. */
-html, body {
-  font-family: system-ui, sans-serif;
-}
-.wrap {
-  font-size: 18px;
-}
-button {
-  height: 52px;
-  min-height: 52px;
-  padding: 0 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  border: 1px solid var(--eth-blue);
-  border-radius: 0;
-  background: var(--eth-blue);
-  color: var(--fg);
-  cursor: pointer;
-}
-button:hover {
-  background: var(--eth-gray);
-  border: 1px solid var(--eth-blue);
-  color: #FFFFFF;
-}
-#generate:hover {
-  background: var(--bg);
-  border-color: var(--eth-blue);
-  color: var(--fg);
+.disclaimer p { margin: 0 0 12px; }
+.disclaimer a:not(.download-button) {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .copy-button {
   min-height: 48px;
@@ -142,7 +75,67 @@ button:hover {
   border-color: var(--eth-blue);
   color: var(--fg);
 }
+#results {
+  display: none;
+  margin-top: 24px;
+  overflow-wrap: normal;
+  font: inherit;
+  line-height: 1.7;
+  width: 100%;
+}
+.value {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+.field { margin-top: 20px; }
+.label {
+  margin-bottom: 6px;
+  color: var(--fg);
+  font: inherit;
+  line-height: 1.4;
+}
+@media (max-width: 480px) {
+  body { padding: 24px 16px; }
+}
+.copy-button { margin-top: 8px; }
 
-.site-footer { width: min(100%, 600px); margin: 24px auto 0; padding-top: 12px; border-top: 1px solid rgba(236, 239, 240, .28); text-align: center; color: var(--eth-gray); line-height: 1.5; }
-.site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+/* Typography: system fonts only; no external font requests. */
+html, body { font-family: system-ui, sans-serif; }
+.wrap { font-size: 18px; }
+
+.site-footer {
+  width: min(100%, 600px);
+  margin: 24px auto 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(236, 239, 240, .28);
+  text-align: center;
+  color: var(--eth-gray);
+  line-height: 1.5;
+}
+.site-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .site-footer a:hover { opacity: .7; }
+
+.download-button {
+  min-height: 48px;
+  margin-top: 12px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--eth-blue);
+  background: var(--eth-blue);
+  color: var(--fg);
+  text-decoration: none;
+  font: inherit;
+  line-height: 1;
+}
+.download-button:hover {
+  background: var(--bg);
+  border-color: var(--eth-blue);
+  color: var(--fg);
+}

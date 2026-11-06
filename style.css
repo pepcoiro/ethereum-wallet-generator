@@ -129,14 +129,14 @@ html, body { font-family: system-ui, sans-serif; }
   align-items: center;
   justify-content: center;
   border: 1px solid var(--eth-blue);
-  background: var(--eth-blue);
+  background: var(--bg);
   color: var(--fg);
   text-decoration: none;
   font: inherit;
   line-height: 1;
 }
 .download-button:hover {
-  background: var(--bg);
+  background: var(--eth-blue);
   border-color: var(--eth-blue);
   color: var(--fg);
 }

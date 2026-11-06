@@ -121,7 +121,8 @@ html, body { font-family: system-ui, sans-serif; }
 .site-footer a:hover { opacity: .7; }
 
 .download-button {
-  min-height: 48px;
+  width: 100%;
+  min-height: 52px;
   margin-top: 12px;
   padding: 0 16px;
   display: inline-flex;
